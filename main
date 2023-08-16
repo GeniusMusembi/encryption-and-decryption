@@ -1,0 +1,55 @@
+def encrypt(plaintext, key):
+    # Initialize the result string
+    result = ""    
+    # Iterate through each character in the plaintext
+    for char in plaintext:
+        # Encrypt uppercase characters using Caesar Cipher
+        if char.isupper():
+            shifted_char = chr((ord(char) + key - 65) % 26 + 65)
+            result += shifted_char
+        # Encrypt lowercase characters using Caesar Cipher
+        elif char.islower():
+            shifted_char = chr((ord(char) + key - 97) % 26 + 97)
+            result += shifted_char
+        # Encrypt digits using the simple algorithm
+        elif char.isdigit():
+            shifted_digit = (int(char) + key) % 10
+            result += str(shifted_digit)
+        # Keep other characters as is
+        else:
+            result += char
+    # Return the encrypted result string
+    return result
+
+def decrypt(ciphertext, key):
+    # Initialize the result string
+    result = ""
+    # Iterate through each character in the ciphertext
+    for char in ciphertext:
+        # Decrypt uppercase characters using Caesar Cipher
+        if char.isupper():
+            shifted_char = chr((ord(char) - key - 65) % 26 + 65)
+            result += shifted_char
+        # Decrypt lowercase characters using Caesar Cipher
+        elif char.islower():
+            shifted_char = chr((ord(char) - key - 97) % 26 + 97)
+            result += shifted_char
+        # Decrypt digits using the simple algorithm
+        elif char.isdigit():
+            shifted_digit = (int(char) - key) % 10
+            result += str(shifted_digit)
+        # Keep other characters as is
+        else:
+            result += char
+    # Return the decrypted result string
+    return result
+
+# Example usage
+plaintext = input("Enter text ")
+key = 3
+
+encrypted_text = encrypt(plaintext, key)
+print("Encrypted Text: ", encrypted_text)
+
+decrypted_text = decrypt(encrypted_text, key)
+print("Decrypted Text: ", decrypted_text)
